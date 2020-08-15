@@ -19,7 +19,7 @@ const items = [
 export default () => {
     return (
         <div>
-            <h1>Widgets App</h1>
+            <br />
             <Accordion items={items} />
         </div>
         
