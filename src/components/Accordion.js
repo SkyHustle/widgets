@@ -1,7 +1,21 @@
 import React from 'react'
 
-const Accordion = () => {
-    return <h3>Accordion</h3>;
+const Accordion = ({ items }) => {
+    const renderedItems = items.map(item => {
+        return (
+            <div key={item.title}>
+                <div className="title active">
+                    <i className="dropDown icon"></i>
+                    {item.title}
+                </div>
+                <div className="content active">
+                    <p>{item.content}</p>
+                </div>
+            </div>
+        )
+    });
+
+    return <div>{renderedItems}</div>;
 }
 
 export default Accordion;
