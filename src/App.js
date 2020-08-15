@@ -21,7 +21,7 @@ export default () => {
     return (
         <div>
             <br />
-            <Accordion items={items} />
+            {/* <Accordion items={items} /> */}
             <Search />
         </div>
         
