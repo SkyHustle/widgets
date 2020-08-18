@@ -3,9 +3,28 @@ import axios from 'axios';
 
 const Search = () => {
     const [term, setTerm] = useState('programming');
+    const [debouncedTerm, setDebouncedTerm] = useState(term);
     const [results, setResults] = useState([]);
 
     useEffect(() => {
+        console.log("Term UseEffect")
+        // Set timeout for 2 seconds
+        const timerId = setTimeout(() => {
+            setDebouncedTerm(term);
+        }, 2000);
+
+        return () => {
+            // Execute this code on the subsequent re-render
+            console.log("Timer Reset")
+            clearTimeout(timerId);
+        };
+    }, [term]);
+
+    // This is executed the first render and then
+    // Only executed again after the user starts typing and stops for 2 seconds
+    // When user starts typing user is setting deboucedTerm
+    useEffect(() => {
+        console.log("Debounce UseEffect")
         const search = async () => {
             const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
                 params: {
@@ -13,26 +32,13 @@ const Search = () => {
                     list: 'search',
                     origin: '*',
                     format: 'json',
-                    srsearch: term,
+                    srsearch: debouncedTerm,
                 },
             });
             setResults(data.query.search);
         };
-
-        if (term && !results.length) {
-            search();
-        } else {
-            const timeoutId = setTimeout(() => {
-                if (term) { search(); }
-            }, 1000);
-            
-            return () => {
-                clearTimeout(timeoutId);
-            };
-        };
-
-
-    }, [term]);
+        search();
+    }, [debouncedTerm]);
 
     const renderResults = results.map(result => {
         return (
