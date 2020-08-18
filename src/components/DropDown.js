@@ -1,7 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const DropDown = ({ options, selected, onSelectedChange }) => {
     const [open, setOpen] = useState(false);
+    const ref = useRef();
+
+    useEffect(() => {
+        // Add a click event listener to the entire body
+        document.body.addEventListener('click', (event) => {
+            // If one of our renderedOptions is clicked 
+            // Escape the click bubble propogation
+            if (ref.current.contains(event.target)) { return; } 
+            setOpen(false);
+        })
+    }, []);
 
     const renderedOptions = options.map(option => {
         if (option.value === selected.value) { return null; }
@@ -17,7 +28,7 @@ const DropDown = ({ options, selected, onSelectedChange }) => {
     });
 
     return (
-        <div className="ui form">
+        <div ref={ref} className="ui form">
             <div className="field">
                 <label className="label">Select A Color</label>
                 <div
