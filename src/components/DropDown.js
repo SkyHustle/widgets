@@ -5,13 +5,20 @@ const DropDown = ({ options, selected, onSelectedChange }) => {
     const ref = useRef();
 
     useEffect(() => {
-        // Add a click event listener to the entire body
-        document.body.addEventListener('click', (event) => {
+        const onBodyClick = (event) => {
             // If one of our renderedOptions is clicked 
             // Escape the click bubble propogation
-            if (ref.current.contains(event.target)) { return; } 
+            if (ref.current.contains(event.target)) { return; }
             setOpen(false);
-        })
+        };
+
+        document.body.addEventListener('click', onBodyClick);
+
+        // Cleanup function will be called right before the next time useEffect is called
+        // It will also be envoked right before the DropDown Component is removed/hidden
+        return () => {
+            document.body.removeEventListener('click', onBodyClick);
+        };
     }, []);
 
     const renderedOptions = options.map(option => {
