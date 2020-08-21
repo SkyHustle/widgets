@@ -4,16 +4,16 @@ import Convert from './Convert';
 
 const options = [
     {
-        label: "The Spanish language",
-        value: "Spanish"
+        label: "Spanish",
+        value: "es"
     },
     {
-        label: "The Russian language",
-        value: "Russian"
+        label: "Russian",
+        value: "ru"
     },
     {
-        label: "The Swedish language",
-        value: "Swedish"
+        label: "Bosnian",
+        value: "bs-BA"
     }
 ]
 
