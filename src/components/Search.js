@@ -7,7 +7,6 @@ const Search = () => {
     const [results, setResults] = useState([]);
 
     useEffect(() => {
-        console.log("Term UseEffect")
         // Set timeout for 2 seconds
         const timerId = setTimeout(() => {
             setDebouncedTerm(term);
@@ -15,7 +14,6 @@ const Search = () => {
 
         return () => {
             // Execute this code on the subsequent re-render
-            console.log("Timer Reset")
             clearTimeout(timerId);
         };
     }, [term]);
@@ -24,7 +22,6 @@ const Search = () => {
     // Only executed again after the user starts typing and stops for 2 seconds
     // When user starts typing user is setting deboucedTerm
     useEffect(() => {
-        console.log("Debounce UseEffect")
         const search = async () => {
             const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
                 params: {
