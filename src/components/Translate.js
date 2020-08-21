@@ -13,13 +13,13 @@ const options = [
     },
     {
         label: "Bosnian",
-        value: "bs-BA"
+        value: "bs"
     }
 ]
 
 const Translate = () => {
     const [language, setLanguage] = useState(options[0]);
-    const [term, setTerm] = useState("Hi There")
+    const [text, setText] = useState("Hello")
 
     return (
         <div>
@@ -27,19 +27,21 @@ const Translate = () => {
                 <div className="field">
                     <label>Enter Text</label>
                     <input
-                        value={term}
-                        onChange={e => setTerm(e.target.value)}
+                        value={text}
+                        onChange={e => setText(e.target.value)}
                         className="input"
                     />
                 </div>
             </div>
             <DropDown
-                title={"Select A Language"}
+                label={"Select A Language"}
                 options={options}
                 selected={language}
                 onSelectedChange={setLanguage}
             />
-            <Convert term={term} language={language.value} />
+            <hr />
+            <h3 className="ui header">Output</h3>
+            <Convert text={text} language={language} />
         </div>
 
     )
