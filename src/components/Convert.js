@@ -5,9 +5,9 @@ const Convert = ({ text, language }) => {
     const [translated, setTranslated] = useState('');
 
     useEffect(() => {
-        // The second arg to post is used to provide a body to the request
-        const search = async () => {
-            const { data } = await  axios.post('https://translation.googleapis.com/language/translate/v2', {}, {
+        const doTranslation = async () => {
+            // The second arg to post is used to provide a body to the request
+            const { data } = await axios.post('https://translation.googleapis.com/language/translate/v2', {}, {
                 params:  {
                     q: text,
                     target: language.value,
@@ -16,10 +16,10 @@ const Convert = ({ text, language }) => {
             });
             setTranslated(data.data.translations[0].translatedText);
         };
-        search()    
+        doTranslation()    
     }, [language, text]);
 
-    return <div>Translated: {translated}</div>;
+    return <div>{translated}</div>;
 };
 
 export default Convert;
