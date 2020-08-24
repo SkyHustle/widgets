@@ -3,6 +3,7 @@ import Accordion from './components/Accordion';
 import Search from './components/Search';
 import DropDown from './components/DropDown';
 import Translate from './components/Translate';
+import Route from './components/Route';
 
 const items = [
     {
@@ -36,34 +37,26 @@ const options = [
 
 
 export default () => {
-    const [selected, setSelected] = useState(options[0])
-
-    const renderComponent = () => {
-        const pathname = window.location.pathname;
-        switch (pathname) {
-            case "/":
-                return <Accordion items={items} />;
-            case "/list":
-                return <Search />;
-            case "/dropdown":
-                return (
-                    <DropDown 
-                        options={options}
-                        selected={selected}
-                        onSelectedChange={(e) => setSelected(e)}
-                        label={"Choose A Color"}
-                    />
-                );
-            case "/translate":
-                return <Translate />
-            default:
-                console.log("Default");
-        }
-    }
+    const [selected, setSelected] = useState(options[0]);
 
     return (
         <div>
-            {renderComponent()}
+            <Route path="/">
+                <Accordion items={items} />
+            </Route>
+            <Route path="/list">
+                <Search />
+            </Route>
+            <Route path="/translate">
+                <Translate />
+            </Route>
+            <Route path="/dropdown"> 
+                <DropDown
+                options={options}
+                selected={selected}
+                onSelectedChange={(e) => setSelected(e)}
+                label={"Choose A Color"} />
+            </Route>
         </div>
         
     )
