@@ -1,20 +1,13 @@
 import React from 'react';
+import Link from './Link';
 
 const Header = () => {
  return (
     <div className="ui secondary pointing menu">
-        <a href="/" className="item">
-            Accordion
-        </a>
-         <a href="/list" className="item">
-             List
-        </a>
-         <a href="/dropdown" className="item">
-             Dropdown
-        </a>
-         <a href="/translate" className="item">
-             Translate
-        </a>
+        <Link href="/" className="item" text="Accordion" />
+         <Link href="/list" className="item" text="List" />
+         <Link href="/dropdown" className="item" text="Dropdown" />
+         <Link href="/translate" className="item" text="Translate" />
     </div>
  );
 }
